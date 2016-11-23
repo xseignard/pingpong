@@ -1,0 +1,21 @@
+{
+  "name": "pingpong",
+  "version": "1.0.0",
+  "description": "BLE to OSC bridge",
+  "scripts": {
+    "start": "node bridge/main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xseignard/pingpong.git"
+  },
+  "author": "Xavier Seignard <xavier.seignard@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/xseignard/pingpong/issues"
+  },
+  "homepage": "https://github.com/xseignard/pingpong#readme",
+  "dependencies": {
+    "noble": "^1.7.0"
+  }
+}

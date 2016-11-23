@@ -1,4 +1,5 @@
 .pioenvs
-obj/
+obj
 bin/*
 !bin/data/
+node_modules
