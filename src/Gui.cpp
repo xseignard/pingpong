@@ -38,13 +38,15 @@ void Gui::setup() {
 	contourFinder.getTracker().setMaximumDistance(maxDistance);
 
 	// osc messaging
-	sender.setup(HOST, PORT);
+	// sender.setup(HOST, PORT);
+  receiver.setup(PORT);
 
 	// gui setup
 	guiSetup();
 }
 
 void Gui::update() {
+	checkOsc();
 	cam.update();
 	if(cam.isFrameNew()) {
 		ps3Fps->setText(ofToString(cam.getGrabber<ofxPS3EyeGrabber>()->getActualFPS()));
@@ -91,6 +93,19 @@ void Gui::sendOsc(ofVec2f center, float radius) {
 	m.addFloatArg(ofMap(center.y, 0, 480, 0.f, 1.f, true));
 	m.addFloatArg(ofMap(radius, 10, 150, 0.f, 1.f, true));
 	sender.sendMessage(m, false);
+}
+
+void Gui::checkOsc() {
+	while(receiver.hasWaitingMessages()){
+		ofxOscMessage m;
+		receiver.getNextMessage(m);
+		if (m.getAddress() == "/Raquette_1") {
+				ofLog(OF_LOG_NOTICE, ofToString(m.getArgAsInt32(0)));
+		}
+		else if (m.getAddress() == "/Raquette_2") {
+			ofLog(OF_LOG_NOTICE, ofToString(m.getArgAsInt32(0)));
+		}
+	}
 }
 
 void Gui::finderSetup() {

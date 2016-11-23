@@ -1,4 +1,7 @@
 const noble = require('noble');
+const osc = require('node-osc');
+
+const client = new osc.Client('127.0.0.1', 12345);
 
 const ids = {
 	uuid: 'c89694e52602',
@@ -7,7 +10,9 @@ const ids = {
 	txCharacteristic: '6e400002b5a3f393e0a9e50e24dcca9e',
 }
 
-let i = 0;
+const sendMessage = (raquette, value) => {
+	client.send(`/${raquette}`, value);
+};
 
 noble.on('stateChange', (state) => {
 	if (state === 'poweredOn') noble.startScanning();
@@ -26,9 +31,10 @@ noble.on('discover', (peripheral) => {
 				uartService.discoverCharacteristics([], (error, chars) => {
 					const rxCharacteristic = chars.filter((char) => { return char.uuid === ids.rxCharacteristic })[0];
 					rxCharacteristic.on('read', (state) => {
-						// console.log(state.toString());
-						i++;
-						console.log(i);
+						const value = parseInt(state.toString());
+						if (value > 500) {
+							sendMessage(peripheral.advertisement.localName, value);
+						}
 					});
 					rxCharacteristic.notify(true);
 				});

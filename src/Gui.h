@@ -14,6 +14,7 @@ class Gui : public ofBaseApp {
 		void draw();
 		void mousePressed(int x, int y, int button);
 		void sendOsc(ofVec2f center, float radius);
+    void checkOsc();
 		void finderSetup();
 		void guiSetup();
 
@@ -33,6 +34,7 @@ class Gui : public ofBaseApp {
 
 		// osc stuff
 		ofxOscSender sender;
+    ofxOscReceiver receiver;
 
 		// gui stuff
 		ofxDatGui* gui;

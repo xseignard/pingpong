@@ -16,6 +16,7 @@
   },
   "homepage": "https://github.com/xseignard/pingpong#readme",
   "dependencies": {
-    "noble": "^1.7.0"
+    "noble": "^1.7.0",
+    "node-osc": "^2.0.4"
   }
 }
