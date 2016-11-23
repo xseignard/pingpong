@@ -1,0 +1,4 @@
+ofxCv
+ofxPS3EyeGrabber
+ofxOsc
+ofxDatGui

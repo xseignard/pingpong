@@ -1,0 +1,4 @@
+.pioenvs
+obj/
+bin/*
+!bin/data/
