@@ -14,8 +14,9 @@ class Gui : public ofBaseApp {
 		void draw();
 		void mousePressed(int x, int y, int button);
 		void sendOsc(ofVec2f center, float radius);
-    void checkOsc();
+		void checkOsc();
 		void finderSetup();
+		void cameraSetup();
 		void guiSetup();
 
 		// stored values
@@ -28,13 +29,26 @@ class Gui : public ofBaseApp {
 		int persistence;
 		float maxDistance;
 
+		int gain;
+		int exposure;
+		int sharpness;
+		int contrast;
+		int brightness;
+		int hue;
+		int redBalance;
+		int blueBalance;
+		int greenBalance;
+
+		ofSoundPlayer pan;
+		ofSoundPlayer boum;
+
 		// video capture stuff
 		ofVideoGrabber cam;
 		ofxCv::ContourFinder contourFinder;
 
 		// osc stuff
 		ofxOscSender sender;
-    ofxOscReceiver receiver;
+		ofxOscReceiver receiver;
 
 		// gui stuff
 		ofxDatGui* gui;
@@ -46,6 +60,15 @@ class Gui : public ofBaseApp {
 		ofxDatGuiSlider* maxDistanceSlider;
 		ofxDatGuiToggle* trackColor;
 		ofxDatGuiToggle* trackMouse;
+		ofxDatGuiSlider* gainSlider;
+		ofxDatGuiSlider* exposureSlider;
+		ofxDatGuiSlider* sharpnessSlider;
+		ofxDatGuiSlider* contrastSlider;
+		ofxDatGuiSlider* brightnessSlider;
+		ofxDatGuiSlider* hueSlider;
+		ofxDatGuiSlider* redBalanceSlider;
+		ofxDatGuiSlider* blueBalanceSlider;
+		ofxDatGuiSlider* greenBalanceSlider;
 		ofxDatGuiTextInput* ps3Fps;
 		void onSliderEvent(ofxDatGuiSliderEvent e);
 		void onColorPickerEvent(ofxDatGuiColorPickerEvent e);
