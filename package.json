@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "BLE to OSC bridge",
   "scripts": {
-    "start": "node bridge/main.js"
+    "start": "node bridge/main.js",
+    "upload": "cd bridge/hardware && platformio run -t upload -e feather && cd ../.."
   },
   "repository": {
     "type": "git",
