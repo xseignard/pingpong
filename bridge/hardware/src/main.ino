@@ -25,7 +25,7 @@ void loop() {
 void initBluetooth() {
 	ble.begin(true);
 	ble.factoryReset();
-	ble.sendCommandCheckOK(F("AT+GAPDEVNAME=Raquette_1"));
+	ble.sendCommandCheckOK(F("AT+GAPDEVNAME=r1"));
 	ble.echo(false);
 	ble.info();
 	ble.verbose(false);
