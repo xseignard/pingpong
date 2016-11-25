@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ofMain.h"
+#include "ofxQuadWarp.h"
 #include "const.h"
 #include "Line.h"
 #include "Gui.h"
@@ -11,6 +12,7 @@ class Pingpong : public ofBaseApp{
 		void setup();
 		void update();
 		void draw();
+		void exit();
 
 		void eyemap();
 		void flipflop();
@@ -31,6 +33,8 @@ class Pingpong : public ofBaseApp{
 		void gotMessage(ofMessage msg);
 
 		shared_ptr<Gui> gui;
+		void setupWarp();
+		void drawWarpHandlers();
 
 	private:
 		int posX;
@@ -39,6 +43,9 @@ class Pingpong : public ofBaseApp{
 		int step;
 		ofTrueTypeFont font;
 		ofImage lemap;
-		ofFbo fbo;
 		Line lines[NUMBER_OF_LINES];
+
+		ofFbo warpFbo;
+		ofxQuadWarp warper;
+
 };

@@ -12,4 +12,5 @@
 
 // colors
 static const ofColor red = ofColor::fromHex(0xff0000);
+static const ofColor blue = ofColor::fromHex(0x0000ff);
 static const ofColor black = ofColor::fromHex(0x000000);

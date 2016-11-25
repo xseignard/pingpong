@@ -24,7 +24,7 @@ void Line::draw(int mouseX, int mouseY){
 	if (dist < 100) {
 		ofSetLineWidth(2);
 		float alpha = fabs(ofMap(sin(ofGetFrameNum() * 0.1 + offset), 0, 1, 0, 255));
-		ofSetColor(255, 255, 255, alpha);
+		ofSetColor(0, 0, 0, alpha);
 		ofDrawLine(start.x, start.y, end.x, end.y);
 	}
 }

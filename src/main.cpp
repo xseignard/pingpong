@@ -11,16 +11,18 @@ int main( ){
 	settings.height = 1080;
 	settings.setPosition(ofVec2f(0,0));
 	settings.resizable = true;
-	settings.windowMode = OF_GAME_MODE;
-	settings.decorated = false;
+	settings.windowMode = OF_WINDOW;
+	settings.decorated = true;
+	settings.title = "Ping Pong";
 	shared_ptr<ofAppBaseWindow> mainWindow = ofCreateWindow(settings);
 
 	settings.width = 910;
-	settings.height = 480;
+	settings.height = 720;
 	settings.setPosition(ofVec2f(0,0));
 	settings.resizable = false;
 	settings.windowMode = OF_WINDOW;
 	settings.decorated = true;
+	settings.title = "GUI";
 	shared_ptr<ofAppBaseWindow> guiWindow = ofCreateWindow(settings);
 
 	shared_ptr<Pingpong> mainApp(new Pingpong);
