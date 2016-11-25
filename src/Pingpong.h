@@ -14,6 +14,8 @@ class Pingpong : public ofBaseApp{
 		void draw();
 		void exit();
 
+		void circlesmap();
+		void linesmap();
 		void eyemap();
 		void flipflop();
 		void textmap();
@@ -39,11 +41,14 @@ class Pingpong : public ofBaseApp{
 	private:
 		int posX;
 		int posY;
+		int prevPosX;
+		int prevPosY;
 		uint64_t timeElapsed;
 		int step;
 		ofTrueTypeFont font;
 		ofImage lemap;
 		Line lines[NUMBER_OF_LINES];
+		bool debug;
 
 		ofFbo warpFbo;
 		ofxQuadWarp warper;

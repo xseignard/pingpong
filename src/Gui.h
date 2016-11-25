@@ -28,6 +28,8 @@ class Gui : public ofBaseApp {
 		float maxArea;
 		int persistence;
 		float maxDistance;
+		float offsetX;
+		float offsetY;
 
 		int gain;
 		int exposure;
@@ -58,6 +60,8 @@ class Gui : public ofBaseApp {
 		ofxDatGuiSlider* maxAreaSlider;
 		ofxDatGuiSlider* persistenceSlider;
 		ofxDatGuiSlider* maxDistanceSlider;
+		ofxDatGuiSlider* offsetXSlider;
+		ofxDatGuiSlider* offsetYSlider;
 		ofxDatGuiToggle* trackColor;
 		ofxDatGuiToggle* trackMouse;
 		ofxDatGuiSlider* gainSlider;

@@ -15,23 +15,26 @@ void Gui::setup() {
 	prevX = 0.0;
 	prevY = 0.0;
 	// ping pong ball color
-	targetColor = ofColor(193, 110, 133);
+	targetColor = ofColor::fromHex(0x94872c);
 	// threshold
-	threshold = 15.0;
+	threshold = 35;
 	// min and max area
-	minArea = 10.0;
-	maxArea = 150.0;
+	minArea = 1.0;
+	maxArea = 60.0;
 	// how many frames without seeing the object
 	persistence = 30; // e.g. 0.5 seconds, since the camera is 60 fps
 	// how many pixels the object can move between frames
 	maxDistance = 50;
+	// tracking offset X, Y
+	offsetX = 0;
+	offsetY = 0;
 	// camera default settings
-	gain = 31;;
-	exposure = 127;
-	sharpness = 31;
-	contrast = 127;
-	brightness = 127;
-	hue = 127;
+	gain = 0;;
+	exposure = 255;
+	sharpness = 0;
+	contrast = 69;
+	brightness = 0;
+	hue = 75.25;
 	redBalance = 127;
 	blueBalance = 127;
 	greenBalance = 127;
@@ -86,8 +89,8 @@ void Gui::draw() {
 		float circleRadius;
 		ofVec2f circleCenter = toOf(contourFinder.getMinEnclosingCircle(0, circleRadius));
 		if (circleCenter.x != prevX || circleCenter.y != prevY) {
-			prevX = circleCenter.x;
-			prevY = circleCenter.y;
+			prevX = circleCenter.x - offsetX;
+			prevY = circleCenter.y - offsetY;
 			// ofLog(OF_LOG_NOTICE, "x: " + ofToString(prevX) + ", y: " + ofToString(prevY));
 			// sendOsc(circleCenter, circleRadius);
 		}
@@ -183,12 +186,18 @@ void Gui::guiSetup() {
 	// max distance
 	maxDistanceSlider = trackingFolder->addSlider("Max Distance", 1, 300);
 	maxDistanceSlider->setValue(maxDistance);
+	// offsetX
+	offsetXSlider = trackingFolder->addSlider("Offset X", -50, 50);
+	offsetXSlider->setValue(offsetX);
+	// offsetY
+	offsetYSlider = trackingFolder->addSlider("Offset Y", -50, 50);
+	offsetYSlider->setValue(offsetY);
 	// color picker
 	colorPicker = trackingFolder->addColorPicker("Tracked color", targetColor);
 	// track color
-	trackColor = trackingFolder->addToggle("Track color", false);
+	trackColor = trackingFolder->addToggle("Track color", true);
 	// track mouse
-	trackMouse = trackingFolder->addToggle("Track mouse", true);
+	trackMouse = trackingFolder->addToggle("Track mouse", false);
 	/**
 	 * Camera setup
 	 */
@@ -240,6 +249,8 @@ void Gui::onSliderEvent(ofxDatGuiSliderEvent e) {
 	else if(e.target->is("Max Area")) maxArea = e.value;
 	else if (e.target->is("Persistence")) persistence = e.value;
 	else if(e.target->is("Max Distance")) maxDistance = e.value;
+	else if (e.target->is("Offset X")) offsetX = e.value;
+	else if(e.target->is("Offset Y")) offsetY = e.value;
 	else if (e.target->is("Gain")) gain = e.value;
 	else if(e.target->is("Exposure")) exposure = e.value;
 	else if (e.target->is("Sharpness")) sharpness = e.value;

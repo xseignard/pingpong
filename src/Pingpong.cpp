@@ -12,6 +12,7 @@ void Pingpong::setup() {
 
 	timeElapsed = 0;
 	step = 0;
+	debug = false;
 	font.loadFont("bodoni.ttf", 48);
 	lemap.load("lemap.jpg");
 	for (int i = 0; i < NUMBER_OF_LINES; i++) {
@@ -35,6 +36,8 @@ void Pingpong::setupWarp() {
 void Pingpong::update() {
 	// update position from camera
 	if (gui->trackColor->getChecked()) {
+		prevPosX = posX;
+		prevPosY = posY;
 		posX = ofMap(gui->prevX, 0, CAM_WIDTH, 0, WIDTH);
 		posY = ofMap(gui->prevY, 0, CAM_HEIGHT, 0, HEIGHT);
 	}
@@ -53,6 +56,7 @@ void Pingpong::update() {
 		warpFbo.end();
 		timeElapsed = currentTime;
 	}
+	if (debug) step = 5;
 }
 
 //--------------------------------------------------------------
@@ -74,6 +78,12 @@ void Pingpong::draw() {
 				break;
 			case 4:
 				linemap();
+				break;
+			case 5:
+				circlesmap();
+				break;
+			case 6:
+				linesmap();
 				break;
 		}
 	}
@@ -104,6 +114,22 @@ void Pingpong::drawWarpHandlers() {
 //--------------------------------------------------------------
 void Pingpong::exit() {
 	warper.save();
+}
+
+//--------------------------------------------------------------
+void Pingpong::circlesmap() {
+	// ofBackground(255);
+	int d = floor(fabs(ofMap(sin(ofGetFrameNum() * 0.1), 0, 1, 100, 200)));
+	ofSetColor(black);
+	ofDrawEllipse(posX, posY, d, d);
+	ofSetColor(255);
+	ofDrawEllipse(posX, posY, d - 20, d - 20);
+}
+
+//--------------------------------------------------------------
+void Pingpong::linesmap() {
+	ofSetColor(black);
+	ofDrawLine(prevPosX, prevPosY, posX, posY);
 }
 
 //--------------------------------------------------------------
@@ -181,6 +207,7 @@ void Pingpong::linemap() {
 void Pingpong::keyPressed(int key) {
 	if (key == ' ') ofToggleFullscreen();
 	else if (key == 's') warper.toggleShow();
+	else if (key == 'd') debug = !debug;
 }
 
 //--------------------------------------------------------------
