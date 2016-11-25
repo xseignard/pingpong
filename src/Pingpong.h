@@ -14,6 +14,7 @@ class Pingpong : public ofBaseApp{
 		void draw();
 		void exit();
 
+		void cochonmap();
 		void circlesmap();
 		void linesmap();
 		void eyemap();
@@ -47,6 +48,7 @@ class Pingpong : public ofBaseApp{
 		int step;
 		ofTrueTypeFont font;
 		ofImage lemap;
+		ofImage cochon;
 		Line lines[NUMBER_OF_LINES];
 		bool debug;
 

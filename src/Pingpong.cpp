@@ -15,6 +15,7 @@ void Pingpong::setup() {
 	debug = false;
 	font.loadFont("bodoni.ttf", 48);
 	lemap.load("lemap.jpg");
+	cochon.load("cochon.png");
 	for (int i = 0; i < NUMBER_OF_LINES; i++) {
 		lines[i].setup();
 	}
@@ -63,7 +64,7 @@ void Pingpong::update() {
 void Pingpong::draw() {
 	warpFbo.begin();
 	{
-		switch (step) {
+		switch (7) {
 			case 0:
 				eyemap();
 				break;
@@ -84,6 +85,9 @@ void Pingpong::draw() {
 				break;
 			case 6:
 				linesmap();
+				break;
+			case 7:
+				cochonmap();
 				break;
 		}
 	}
@@ -115,10 +119,21 @@ void Pingpong::drawWarpHandlers() {
 void Pingpong::exit() {
 	warper.save();
 }
+//--------------------------------------------------------------
+void Pingpong::cochonmap() {
+	// ofSetColor(255, 255, 255, 75);
+	// ofDrawRectangle(0, 0, WIDTH, HEIGHT);
+	ofBackground(255);
+	ofPushMatrix();
+	ofTranslate(posX, posY);
+	ofRotate((sin(ofGetFrameNum() * 0.02) * 0.5 + 0.5) * 360);
+	cochon.draw(-cochon.getWidth()/2, -cochon.getHeight()/2);
+	ofPopMatrix();
+
+}
 
 //--------------------------------------------------------------
 void Pingpong::circlesmap() {
-	// ofBackground(255);
 	int d = floor(fabs(ofMap(sin(ofGetFrameNum() * 0.1), 0, 1, 100, 200)));
 	ofSetColor(black);
 	ofDrawEllipse(posX, posY, d, d);
@@ -129,6 +144,7 @@ void Pingpong::circlesmap() {
 //--------------------------------------------------------------
 void Pingpong::linesmap() {
 	ofSetColor(black);
+	ofSetLineWidth(15);
 	ofDrawLine(prevPosX, prevPosY, posX, posY);
 }
 
@@ -216,8 +232,10 @@ void Pingpong::keyReleased(int key) {
 }
 
 //--------------------------------------------------------------
-void Pingpong::mouseMoved(int x, int y ) {
+void Pingpong::mouseMoved(int x, int y) {
 	if (gui->trackMouse->getChecked()) {
+		prevPosX = posX;
+		prevPosY = posY;
 		posX = x;
 		posY = y;
 	}

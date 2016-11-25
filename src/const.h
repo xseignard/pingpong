@@ -6,7 +6,7 @@
 #define CAM_HEIGHT 480
 #define INTERVAL 15000
 #define NUMBER_OF_LINES 500
-#define NUMBER_OF_SKETCHES 7
+#define NUMBER_OF_SKETCHES 8
 #define HOST "localhost"
 #define PORT 12345
 
