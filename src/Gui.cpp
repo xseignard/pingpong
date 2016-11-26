@@ -112,8 +112,8 @@ void Gui::mousePressed(int x, int y, int button) {
 void Gui::sendOsc(ofVec2f center, float radius) {
 	ofxOscMessage m;
 	m.setAddress("/ball/position");
-	m.addFloatArg(ofMap(center.x, 0, 640, 0.f, 1.f, true));
-	m.addFloatArg(ofMap(center.y, 0, 480, 0.f, 1.f, true));
+	m.addFloatArg(ofMap(center.x, 0, CAM_WIDTH, 0.f, 1.f, true));
+	m.addFloatArg(ofMap(center.y, 0, CAM_HEIGHT, 0.f, 1.f, true));
 	m.addFloatArg(ofMap(radius, 10, 150, 0.f, 1.f, true));
 	sender.sendMessage(m, false);
 }
@@ -124,11 +124,11 @@ void Gui::checkOsc() {
 		ofxOscMessage m;
 		receiver.getNextMessage(m);
 		if (m.getAddress() == "/r1") {
-			ofLog(OF_LOG_NOTICE, ofToString(m.getArgAsInt32(0)));
+			// ofLog(OF_LOG_NOTICE, ofToString(m.getArgAsInt32(0)));
 			pan.play();
-		}
+		}480
 		else if (m.getAddress() == "/r2") {
-			ofLog(OF_LOG_NOTICE, ofToString(m.getArgAsInt32(0)));
+			// ofLog(OF_LOG_NOTICE, ofToString(m.getArgAsInt32(0)));
 			boum.play();
 		}
 	}
@@ -246,20 +246,20 @@ void Gui::guiSetup() {
 void Gui::onSliderEvent(ofxDatGuiSliderEvent e) {
 	if (e.target->is("Threshold")) threshold = e.value;
 	else if (e.target->is("Min Area")) minArea = e.value;
-	else if(e.target->is("Max Area")) maxArea = e.value;
+	else if (e.target->is("Max Area")) maxArea = e.value;
 	else if (e.target->is("Persistence")) persistence = e.value;
-	else if(e.target->is("Max Distance")) maxDistance = e.value;
+	else if (e.target->is("Max Distance")) maxDistance = e.value;
 	else if (e.target->is("Offset X")) offsetX = e.value;
-	else if(e.target->is("Offset Y")) offsetY = e.value;
+	else if (e.target->is("Offset Y")) offsetY = e.value;
 	else if (e.target->is("Gain")) gain = e.value;
-	else if(e.target->is("Exposure")) exposure = e.value;
+	else if (e.target->is("Exposure")) exposure = e.value;
 	else if (e.target->is("Sharpness")) sharpness = e.value;
-	else if(e.target->is("Contrast")) contrast = e.value;
+	else if (e.target->is("Contrast")) contrast = e.value;
 	else if (e.target->is("Brightness")) brightness = e.value;
-	else if(e.target->is("Hue")) hue = e.value;
+	else if (e.target->is("Hue")) hue = e.value;
 	else if (e.target->is("Red Balance")) redBalance = e.value;
-	else if(e.target->is("Blue Balance")) blueBalance = e.value;
-	else if(e.target->is("Green Balance")) greenBalance = e.value;
+	else if (e.target->is("Blue Balance")) blueBalance = e.value;
+	else if (e.target->is("Green Balance")) greenBalance = e.value;
 }
 
 //--------------------------------------------------------------
