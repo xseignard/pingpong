@@ -23,6 +23,8 @@ void Pingpong::setup() {
 	for (int i = 0; i < NUMBER_OF_LINES; i++) {
 		lines[i].setup();
 	}
+	// points for line setup
+	points.assign(50, ofPoint())
 	// particles setup
 	particles.assign(20, Particle());
 	for (int i = 0; i < particles.size(); i++) {
@@ -74,7 +76,7 @@ void Pingpong::update() {
 void Pingpong::draw() {
 	warpFbo.begin();
 	{
-		switch (step) {
+		switch (6) {
 			case 0:
 				eyemap();
 				break;
@@ -154,18 +156,19 @@ void Pingpong::pictomap() {
 
 //--------------------------------------------------------------
 void Pingpong::circlesmap() {
-	int d = floor(fabs(ofMap(sin(ofGetFrameNum() * 0.1), 0, 1, 100, 200)));
+	int d = ofMap((sin(ofGetFrameNum() * 0.1) * 0.5 + 0.5), 0, 1, 100, 200);
 	ofSetColor(black);
 	ofDrawEllipse(posX, posY, d, d);
 	ofSetColor(255);
-	ofDrawEllipse(posX, posY, d - 20, d - 20);
+	ofDrawEllipse(posX, posY, d - 5, d - 5);
 }
 
 //--------------------------------------------------------------
 void Pingpong::linesmap() {
-	ofSetColor(black);
-	ofSetLineWidth(15);
-	ofDrawLine(prevPosX, prevPosY, posX, posY);
+	// ofSetColor(black);
+	// ofSetLineWidth(15);
+	// ofDrawLine(prevPosX, prevPosY, posX, posY);
+
 }
 
 //--------------------------------------------------------------
