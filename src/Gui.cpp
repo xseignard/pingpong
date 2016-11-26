@@ -126,7 +126,7 @@ void Gui::checkOsc() {
 		if (m.getAddress() == "/r1") {
 			// ofLog(OF_LOG_NOTICE, ofToString(m.getArgAsInt32(0)));
 			pan.play();
-		}480
+		}
 		else if (m.getAddress() == "/r2") {
 			// ofLog(OF_LOG_NOTICE, ofToString(m.getArgAsInt32(0)));
 			boum.play();
@@ -171,6 +171,7 @@ void Gui::guiSetup() {
 	 * Tracking setup
 	 */
 	ofxDatGuiFolder* trackingFolder = gui->addFolder("Tracking setup", red);
+	trackingFolder->expand();
 	// threshold
 	thresholdSlider = trackingFolder->addSlider("Threshold", 0, 255);
 	thresholdSlider->setValue(threshold);
@@ -202,6 +203,7 @@ void Gui::guiSetup() {
 	 * Camera setup
 	 */
 	ofxDatGuiFolder* camFolder = gui->addFolder("Cam setup", blue);
+	camFolder->expand();
 	// gain
 	gainSlider = camFolder->addSlider("Gain", 0, 63);
 	gainSlider->setValue(gain);

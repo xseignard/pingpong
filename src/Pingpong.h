@@ -4,6 +4,7 @@
 #include "ofxQuadWarp.h"
 #include "const.h"
 #include "Line.h"
+#include "Particle.h"
 #include "Gui.h"
 
 class Pingpong : public ofBaseApp{
@@ -14,7 +15,8 @@ class Pingpong : public ofBaseApp{
 		void draw();
 		void exit();
 
-		void cochonmap();
+		void particlesmap();
+		void pictomap();
 		void circlesmap();
 		void linesmap();
 		void eyemap();
@@ -48,8 +50,10 @@ class Pingpong : public ofBaseApp{
 		int step;
 		ofTrueTypeFont font;
 		ofImage lemap;
-		ofImage cochon;
+		ofImage pictos[9];
+		ofImage currentPicto;
 		Line lines[NUMBER_OF_LINES];
+		vector <Particle> particles;
 		bool debug;
 
 		ofFbo warpFbo;

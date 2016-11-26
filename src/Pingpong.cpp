@@ -12,12 +12,21 @@ void Pingpong::setup() {
 
 	timeElapsed = 0;
 	step = 0;
-	debug = false;
 	font.loadFont("bodoni.ttf", 48);
 	lemap.load("lemap.jpg");
-	cochon.load("cochon.png");
+	// pictos setup
+	for (int i = 0; i < NUMBER_OF_PICTOS; i++) {
+		pictos[i].load("pictos/picto_" + ofToString(i) + ".png");
+	}
+	currentPicto = pictos[(int) ofRandom(0, 8)];
+	// lines setup
 	for (int i = 0; i < NUMBER_OF_LINES; i++) {
 		lines[i].setup();
+	}
+	// particles setup
+	particles.assign(20, Particle());
+	for (int i = 0; i < particles.size(); i++) {
+		particles[i].reset();
 	}
 }
 
@@ -56,15 +65,16 @@ void Pingpong::update() {
 			ofDrawRectangle(0, 0, WIDTH, HEIGHT);
 		warpFbo.end();
 		timeElapsed = currentTime;
+		// specific updates when a scene changes
+		if (step == 7 || step == 8) currentPicto = pictos[(int) ofRandom(0, 8)];
 	}
-	if (debug) step = 5;
 }
 
 //--------------------------------------------------------------
 void Pingpong::draw() {
 	warpFbo.begin();
 	{
-		switch (7) {
+		switch (step) {
 			case 0:
 				eyemap();
 				break;
@@ -87,7 +97,10 @@ void Pingpong::draw() {
 				linesmap();
 				break;
 			case 7:
-				cochonmap();
+				pictomap();
+				break;
+			case 8:
+				particlesmap();
 				break;
 		}
 	}
@@ -119,17 +132,24 @@ void Pingpong::drawWarpHandlers() {
 void Pingpong::exit() {
 	warper.save();
 }
+
 //--------------------------------------------------------------
-void Pingpong::cochonmap() {
-	// ofSetColor(255, 255, 255, 75);
-	// ofDrawRectangle(0, 0, WIDTH, HEIGHT);
+void Pingpong::particlesmap() {
+	ofBackground(255);
+	for(int i = 0; i < particles.size(); i++) {
+		particles[i].update(posX, posY);
+		particles[i].draw(currentPicto);
+	}
+}
+
+//--------------------------------------------------------------
+void Pingpong::pictomap() {
 	ofBackground(255);
 	ofPushMatrix();
 	ofTranslate(posX, posY);
 	ofRotate((sin(ofGetFrameNum() * 0.02) * 0.5 + 0.5) * 360);
-	cochon.draw(-cochon.getWidth()/2, -cochon.getHeight()/2);
+	currentPicto.draw(-currentPicto.getWidth()/2, -currentPicto.getHeight()/2);
 	ofPopMatrix();
-
 }
 
 //--------------------------------------------------------------
@@ -223,7 +243,6 @@ void Pingpong::linemap() {
 void Pingpong::keyPressed(int key) {
 	if (key == ' ') ofToggleFullscreen();
 	else if (key == 's') warper.toggleShow();
-	else if (key == 'd') debug = !debug;
 }
 
 //--------------------------------------------------------------

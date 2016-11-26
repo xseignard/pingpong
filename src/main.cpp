@@ -32,6 +32,4 @@ int main( ){
 	ofRunApp(mainWindow, mainApp);
 	ofRunApp(guiWindow, gui);
 	ofRunMainLoop();
-	// ofSetupOpenGL(WIDTH, HEIGHT, OF_GAME_MODE);
-	// ofRunApp(new Pingpong());
 }
