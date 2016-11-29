@@ -55,7 +55,6 @@ class Pingpong : public ofBaseApp{
 		ofImage currentPicto;
 		Line lines[NUMBER_OF_LINES];
 		vector <Particle> particles;
-		bool debug;
 
 		ofFbo warpFbo;
 		ofxQuadWarp warper;
