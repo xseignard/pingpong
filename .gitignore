@@ -2,4 +2,5 @@
 obj
 bin/*
 !bin/data/
+bin/data/videos/*
 node_modules

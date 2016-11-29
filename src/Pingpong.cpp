@@ -23,18 +23,18 @@ void Pingpong::setup() {
 	for (int i = 0; i < NUMBER_OF_LINES; i++) {
 		lines[i].setup();
 	}
-	// points for line setup
-	points.assign(50, ofPoint())
 	// particles setup
 	particles.assign(20, Particle());
 	for (int i = 0; i < particles.size(); i++) {
 		particles[i].reset();
 	}
+	// video setup
+	video.loadMovie("videos/video_1.mp4");
 }
 
 //--------------------------------------------------------------
 void Pingpong::setupWarp() {
-	warpFbo.allocate(WIDTH, HEIGHT, GL_LUMINANCE);
+	warpFbo.allocate(WIDTH, HEIGHT, GL_RGB, 4);
 	warper.setSourceRect(ofRectangle(0, 0, WIDTH, HEIGHT));
 	warper.setTopLeftCornerPosition(ofPoint(0, 0));
 	warper.setTopRightCornerPosition(ofPoint(WIDTH, 0));
@@ -68,15 +68,22 @@ void Pingpong::update() {
 		warpFbo.end();
 		timeElapsed = currentTime;
 		// specific updates when a scene changes
+		// select a new random picto for pictomap or particlesmap
 		if (step == 7 || step == 8) currentPicto = pictos[(int) ofRandom(0, 8)];
+		// play video only for the videomap scene
+		if (step == 9) video.play();
+		// stop video if not videomap scene and if playing
+		else if (video.isPlaying()) video.stop();
 	}
 }
 
 //--------------------------------------------------------------
 void Pingpong::draw() {
+	// paint it white
+	ofSetColor(255);
 	warpFbo.begin();
 	{
-		switch (6) {
+		switch (step) {
 			case 0:
 				eyemap();
 				break;
@@ -104,12 +111,13 @@ void Pingpong::draw() {
 			case 8:
 				particlesmap();
 				break;
+			case 9:
+				videomap();
+				break;
 		}
 	}
 	warpFbo.end();
 
-	// paint it white
-	ofSetColor(255);
 	// transform image to match the warp
 	ofMatrix4x4 mat = warper.getMatrix();
 	ofPushMatrix();
@@ -133,6 +141,13 @@ void Pingpong::drawWarpHandlers() {
 //--------------------------------------------------------------
 void Pingpong::exit() {
 	warper.save();
+}
+
+//--------------------------------------------------------------
+void Pingpong::videomap() {
+	video.update();
+	ofBackground(255);
+	video.draw(0, 0);
 }
 
 //--------------------------------------------------------------
@@ -165,10 +180,9 @@ void Pingpong::circlesmap() {
 
 //--------------------------------------------------------------
 void Pingpong::linesmap() {
-	// ofSetColor(black);
-	// ofSetLineWidth(15);
-	// ofDrawLine(prevPosX, prevPosY, posX, posY);
-
+	ofSetColor(black);
+	ofSetLineWidth(15);
+	ofDrawLine(prevPosX, prevPosY, posX, posY);
 }
 
 //--------------------------------------------------------------

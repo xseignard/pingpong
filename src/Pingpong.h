@@ -15,6 +15,7 @@ class Pingpong : public ofBaseApp{
 		void draw();
 		void exit();
 
+		void videomap();
 		void particlesmap();
 		void pictomap();
 		void circlesmap();
@@ -58,5 +59,7 @@ class Pingpong : public ofBaseApp{
 
 		ofFbo warpFbo;
 		ofxQuadWarp warper;
+
+		ofVideoPlayer video;
 
 };

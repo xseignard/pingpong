@@ -17,4 +17,5 @@ class Particle {
 		float drag;
 		float uniqueVal;
 		float scale;
+		float rotation;
 };

@@ -14,6 +14,7 @@ void Particle::reset() {
 	frc   = ofPoint(0,0,0);
 	scale = ofRandom(0.5, 1.0);
 	drag  = ofRandom(0.95, 0.998);
+	rotation = ofRandom(0, 180);
 }
 
 //------------------------------------------------------------------
@@ -61,5 +62,9 @@ void Particle::update(int posX, int posY) {
 
 //------------------------------------------------------------------
 void Particle::draw(ofImage img) {
-	img.draw(pos.x, pos.y);
+	ofPushMatrix();
+	ofTranslate(pos.x, pos.y);
+	ofRotate(rotation);
+	img.draw(0, 0);
+	ofPopMatrix();
 }
