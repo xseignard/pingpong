@@ -44,6 +44,9 @@ class Gui : public ofBaseApp {
 		ofSoundPlayer pan;
 		ofSoundPlayer boum;
 
+		float lastBallTime;
+		bool idle;
+
 		// video capture stuff
 		ofVideoGrabber cam;
 		ofxCv::ContourFinder contourFinder;

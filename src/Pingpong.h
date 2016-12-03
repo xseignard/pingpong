@@ -15,6 +15,7 @@ class Pingpong : public ofBaseApp{
 		void draw();
 		void exit();
 
+		void gogglesmap();
 		void videomap();
 		void particlesmap();
 		void pictomap();
@@ -51,6 +52,8 @@ class Pingpong : public ofBaseApp{
 		int step;
 		ofTrueTypeFont font;
 		ofImage lemap;
+		ofImage goggles;
+		ofImage iris;
 		ofImage pictos[9];
 		ofImage currentPicto;
 		Line lines[NUMBER_OF_LINES];

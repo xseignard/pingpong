@@ -13,7 +13,9 @@ void Pingpong::setup() {
 	timeElapsed = 0;
 	step = 0;
 	font.loadFont("bodoni.ttf", 48);
-	lemap.load("lemap.jpg");
+	lemap.load("lemap-2.jpg");
+	goggles.load("goggles.png");
+	iris.load("iris.resized.png");
 	// pictos setup
 	for (int i = 0; i < NUMBER_OF_PICTOS; i++) {
 		pictos[i].load("pictos/picto_" + ofToString(i) + ".png");
@@ -29,7 +31,7 @@ void Pingpong::setup() {
 		particles[i].reset();
 	}
 	// video setup
-	video.loadMovie("videos/video_1.mp4");
+	video.loadMovie("videos/PINGPONG.mov");
 }
 
 //--------------------------------------------------------------
@@ -67,13 +69,15 @@ void Pingpong::update() {
 			ofDrawRectangle(0, 0, WIDTH, HEIGHT);
 		warpFbo.end();
 		timeElapsed = currentTime;
+		// override step if gui->idle
+		if (gui->idle) step = 9;
 		// specific updates when a scene changes
 		// select a new random picto for pictomap or particlesmap
 		if (step == 7 || step == 8) currentPicto = pictos[(int) ofRandom(0, 8)];
 		// play video only for the videomap scene
-		if (step == 9) video.play();
+		if (step == 9 && !video.isPlaying()) video.play();
 		// stop video if not videomap scene and if playing
-		else if (video.isPlaying()) video.stop();
+		else if (step != 9 && video.isPlaying()) video.stop();
 	}
 }
 
@@ -85,7 +89,7 @@ void Pingpong::draw() {
 	{
 		switch (step) {
 			case 0:
-				eyemap();
+				gogglesmap();
 				break;
 			case 1:
 				flipflop();
@@ -141,6 +145,24 @@ void Pingpong::drawWarpHandlers() {
 //--------------------------------------------------------------
 void Pingpong::exit() {
 	warper.save();
+}
+
+//--------------------------------------------------------------
+void Pingpong::gogglesmap() {
+	ofBackground(255);
+	goggles.draw(0, 0);
+	int pX = (int) ofMap(posX, 0, WIDTH, -15, 15);
+	int pY = (int) ofMap(posY, 0, HEIGHT, -15, 15);
+	int offsetX = iris.getWidth() / 2;
+	int offsetY = iris.getHeight() / 2;
+	// top left eye
+	iris.draw(430 - offsetX + pX, 370 - offsetY + pY);
+	// bottom left eye
+	iris.draw(446 - offsetX + pX, 705 - offsetY + pY);
+	// top right eye
+	iris.draw(1474 - offsetX + pX, 400 - offsetY + pY);
+	// bottom right eye
+	iris.draw(1488 - offsetX + pX, 737 - offsetY + pY);
 }
 
 //--------------------------------------------------------------

@@ -34,10 +34,14 @@ void Gui::setup() {
 	sharpness = 0;
 	contrast = 69;
 	brightness = 0;
-	hue = 75.25;
+	hue = 255;
 	redBalance = 127;
 	blueBalance = 127;
 	greenBalance = 127;
+
+	// init last ball time
+	lastBallTime = 0;
+	idle = false;
 
 	// setup camera controls with default values
 	cameraSetup();
@@ -84,7 +88,11 @@ void Gui::draw() {
 	cam.draw(0, 0);
 
 	int n = contourFinder.size();
+	// something is detected
 	if (n >= 1) {
+		// update last time a ball was seen
+		lastBallTime = ofGetElapsedTimef();
+		idle = false;
 		ofSetColor(red);
 		float circleRadius;
 		ofVec2f circleCenter = toOf(contourFinder.getMinEnclosingCircle(0, circleRadius));
@@ -98,6 +106,8 @@ void Gui::draw() {
 		ofSetColor(black);
 		ofDrawBitmapString(ofToString(circleRadius), circleCenter.x, circleCenter.y);
 	}
+	// check if nothing was detected for the IDLE_INTERVAL
+	if (ofGetElapsedTimef() - lastBallTime > IDLE_INTERVAL) idle = true;
 }
 
 //--------------------------------------------------------------

@@ -4,10 +4,11 @@
 #define HEIGHT 1080
 #define CAM_WIDTH 640
 #define CAM_HEIGHT 480
-#define INTERVAL 2000
+#define INTERVAL 15000
 #define NUMBER_OF_LINES 500
 #define NUMBER_OF_SKETCHES 10
 #define NUMBER_OF_PICTOS 9
+#define IDLE_INTERVAL 10
 #define HOST "localhost"
 #define PORT 12345
 
